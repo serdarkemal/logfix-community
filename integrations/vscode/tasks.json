@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dev Server with LogFix",
+      "type": "shell",
+      "command": "npm run dev 2>&1 | logfix",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "clear": true
+      },
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "Test with LogFix",
+      "type": "shell",
+      "command": "npm test 2>&1 | logfix --output json > test-logs.json",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build with LogFix",
+      "type": "shell",
+      "command": "npm run build 2>&1 | logfix --min-level warn",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+name: Test with LogFix
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Download LogFix
+        run: |
+          wget https://github.com/serdarkemal/logfix/releases/latest/download/logfix-linux.zip
+          unzip logfix-linux.zip
+          chmod +x logfix
+      
+      - name: Run tests with LogFix
+        run: |
+          npm test 2>&1 | ./logfix \
+            --output json \
+            --min-level error \
+            > test-logs.json
+      
+      - name: Upload LogFix output
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-logs
+          path: test-logs.json
+      
+      - name: Comment PR with Log Summary
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const logs = JSON.parse(fs.readFileSync('test-logs.json', 'utf8'));
+            const errorCount = logs.filter(l => l.level === 'error').length;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## LogFix Summary\n\n- Total errors: ${errorCount}\n- View full logs in artifacts`
+            });

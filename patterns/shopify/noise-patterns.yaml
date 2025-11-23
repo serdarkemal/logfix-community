@@ -1,0 +1,59 @@
+# Shopify App Development - LogFix Patterns
+
+noise_patterns:
+  # LLMS / Asset Upload
+  - "LLMS Upload] CDN URL"
+  - "Asset uploaded to CDN"
+  
+  # App Embed
+  - "App Embed found"
+  - "Theme app extension detected"
+  
+  # Access & Scopes
+  - "Access scopes auto-granted"
+  - "Access token refreshed"
+  - "Session validated"
+  
+  # API Calls
+  - "Shopify API call"
+  - "GraphQL query executed"
+  - "REST API request"
+  
+  # Development Server
+  - "GraphiQL server started"
+  - "Shopify dev server running"
+  - "Tunnel established"
+  - "Ngrok tunnel active"
+  
+  # Webhooks
+  - "Webhook received"
+  - "Webhook handler triggered"
+  - "HMAC verification passed"
+  
+  # Database / Cache
+  - "Prisma client connected"
+  - "Session store initialized"
+  - "Redis cache hit"
+
+# Regex patterns for normalization
+regex_patterns:
+  # Normalize shop domains
+  - pattern: "shop=[a-z0-9-]+\\.myshopify\\.com"
+    replace: "shop=*****.myshopify.com"
+  
+  # Normalize access tokens
+  - pattern: "shpat_[a-zA-Z0-9]+"
+    replace: "shpat_***"
+  
+  # Normalize webhook IDs
+  - pattern: "webhook_id:\\s+\\d+"
+    replace: "webhook_id: ***"
+
+# Never reduce these critical logs
+never_reduce:
+  - "payment"
+  - "order"
+  - "checkout"
+  - "refund"
+  - "customer_data"
+  - "gdpr"

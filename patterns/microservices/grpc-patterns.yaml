@@ -1,0 +1,59 @@
+# gRPC Microservices - LogFix Patterns
+
+noise_patterns:
+  # Health Checks
+  - "gRPC server listening"
+  - "Health check: serving"
+  - "Health probe succeeded"
+  - "Liveness probe OK"
+  - "Readiness check passed"
+  
+  # Service Mesh
+  - "Service mesh health check"
+  - "Envoy proxy connected"
+  - "Istio sidecar ready"
+  - "mTLS certificate validated"
+  
+  # Circuit Breaker
+  - "Circuit breaker: closed"
+  - "Circuit breaker: half-open"
+  - "Retry attempt"
+  - "Backoff delay"
+  
+  # Load Balancer
+  - "Load balancer ping"
+  - "Pod registered in service"
+  - "Endpoint update received"
+  
+  # Service Discovery
+  - "Service registered with Consul"
+  - "DNS lookup cached"
+  - "Service endpoint resolved"
+  
+  # Tracing
+  - "Trace context propagated"
+  - "Span created"
+  - "Jaeger trace exported"
+
+# Regex patterns
+regex_patterns:
+  # Normalize trace IDs
+  - pattern: "trace_id=[a-f0-9]{32}"
+    replace: "trace_id=***"
+  
+  # Normalize request IDs
+  - pattern: "request_id=[a-zA-Z0-9-]+"
+    replace: "request_id=***"
+  
+  # Normalize pod IDs
+  - pattern: "pod=[a-z0-9-]+-[a-z0-9]{5}"
+    replace: "pod=***"
+
+# Critical logs to preserve
+never_reduce:
+  - "panic"
+  - "fatal"
+  - "connection refused"
+  - "timeout"
+  - "circuit open"
+  - "rate limit"
