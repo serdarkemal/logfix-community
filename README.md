@@ -10,11 +10,14 @@ Welcome! This is the community hub for LogFix users to share custom patterns, in
 
 ### Installation
 
-Download LogFix from releases and activate:
+**Get LogFix:** Purchase from [logfix.com](https://logfix.com) (coming at launch)
+
+After purchase, you'll receive:
+- Download link via email
+- License key for activation
 
 ```bash
-# Download and extract
-wget https://github.com/serdarkemal/logfix/releases/latest/download/logfix.zip
+# Extract downloaded binary
 unzip logfix.zip && cd logfix
 
 # Activate your license
@@ -23,6 +26,8 @@ unzip logfix.zip && cd logfix
 # Start using
 npm run dev 2>&1 | logfix
 ```
+
+**Beta Access:** Contact hello@logfix.com
 
 ### Basic Usage
 

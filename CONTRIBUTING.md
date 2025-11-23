@@ -105,9 +105,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Download LogFix
+      - name: Setup LogFix
         run: |
-          wget https://github.com/serdarkemal/logfix/releases/latest/download/logfix-linux.zip
+          # Download from your licensed source
+          # (binary location depends on your setup)
+          curl -O https://your-backend.com/logfix-linux.zip
           unzip logfix-linux.zip
       
       - name: Run tests

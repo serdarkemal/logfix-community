@@ -22,11 +22,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Download LogFix
+      - name: Setup LogFix
         run: |
-          wget https://github.com/serdarkemal/logfix/releases/latest/download/logfix-linux.zip
-          unzip logfix-linux.zip
+          # For CI/CD: Store binary in your repo or use a secure download endpoint
+          # Example: Download from your backend with a CI token
+          curl -H "Authorization: Bearer ${{ secrets.LOGFIX_CI_TOKEN }}" \
+            https://api.logfix.com/download/linux -o logfix.zip
+          unzip logfix.zip
           chmod +x logfix
+          
+          # Or: Commit logfix binary to your repo (if license allows)
+          # ./tools/logfix
       
       - name: Run tests with LogFix
         run: |
